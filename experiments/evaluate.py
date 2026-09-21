@@ -1,5 +1,7 @@
 import os
-os.environ["CUDA_VISIBLE_DEVICES"] = "1"
+os.environ["CUDA_VISIBLE_DEVICES"] = "0"
+os.environ["HF_HOME"] = "/research/hal-afsharim/.cache/huggingface" # Added by Milad
+os.environ["HF_DATASETS_CACHE"] = "/research/hal-afsharim/.cache/huggingface/datasets" # Added by Milad
 import json
 import shutil
 from itertools import islice
@@ -7,6 +9,7 @@ from time import time
 from typing import Tuple, Union
 import numpy as np
 import torch
+torch.cuda.empty_cache() # Added by Milad
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 from baselines.ft import FTHyperParams, apply_ft_to_model
@@ -115,7 +118,9 @@ def main(
     # Instantiate vanilla model
     if type(model_name) is str:
         print("Instantiating model")
-        model = AutoModelForCausalLM.from_pretrained(model_name).cuda()
+        if model_name=="meta-llama/Meta-Llama-3-8B-Instruct":
+            model_name="/research/hal-afsharim/llms/Meta-Llama-3-8B-Instruct"
+        model = AutoModelForCausalLM.from_pretrained(model_name,token=os.environ['HF_TOKEN']).cuda()
         tok = AutoTokenizer.from_pretrained(model_name)
         tok.pad_token = tok.eos_token
     else:

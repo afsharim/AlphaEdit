@@ -1,0 +1,15 @@
+# Exclude local files at or above GitHub's 100 MiB file limit.
+# Git ignores paths, not sizes; rescan when adding large artifacts.
+/data/attribute_snippets.json
+/data/stats/llama3-8b-instruct/wikipedia_stats/model.layers.4.mlp.down_proj_float32_mom2_100000.npz
+/data/stats/llama3-8b-instruct/wikipedia_stats/model.layers.5.mlp.down_proj_float32_mom2_100000.npz
+/data/stats/llama3-8b-instruct/wikipedia_stats/model.layers.6.mlp.down_proj_float32_mom2_100000.npz
+/data/stats/llama3-8b-instruct/wikipedia_stats/model.layers.7.mlp.down_proj_float32_mom2_100000.npz
+/data/stats/llama3-8b-instruct/wikipedia_stats/model.layers.8.mlp.down_proj_float32_mom2_100000.npz
+
+# Generated Python caches.
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
